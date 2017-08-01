@@ -40,8 +40,10 @@ export function sortNews(event) {
     const news = getState().news;
 
     news.sort((a, b) => {
-      if(a[sorter] < b[sorter]) return -1;
-      if(a[sorter] > b[sorter]) return 1;
+      const x = a[sorter] || "";
+      const y = b[sorter] || "";
+      if (x < y) return -1;
+      if (x > y) return 1;
       return 0;
     })
 
