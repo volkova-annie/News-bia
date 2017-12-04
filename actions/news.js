@@ -7,18 +7,19 @@ export function updateNews(news) {
 
 export function requestNews() {
   return (dispatch) => {
-    const apiKey = 'ca97653137944f2fac0abe57e6a6d7e0';
-    const url = 'https://newsapi.org/v1/articles?source=hacker-news&apiKey='+apiKey;
-
+    const apiKey = '656af0c6ac43444b9bd39a0854759afa';
+    const url = 'https://api.nytimes.com/svc/topstories/v2/world.json?api-key='+apiKey;
+    console.log(url);
     fetch(url)
-      .then(response => response.json())
-      .then(response => response.articles.map(article => {
-        if (article.publishedAt) article.publishedAt = new Date(article.publishedAt)
-        return article
-      }))
-      .then(news => {
-        dispatch(updateNews(news))
-      })
+      .then(response => console.log(JSON.parse(response)))
+      // .then(response => response.json())
+      // .then(response => response.articles.map(article => {
+      //   if (article.publishedAt) article.publishedAt = new Date(article.publishedAt)
+      //   return article
+      // }))
+      // .then(news => {
+      //   dispatch(updateNews(news))
+      // })
       .catch(error => {
         console.error(error);
       })
