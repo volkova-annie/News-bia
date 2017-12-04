@@ -1,6 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const CleanWebpackPlugin = require('clean-webpack-plugin')
+
+function resolve (dir) {
+  return path.join(__dirname, '.', dir)
+}
 
 module.exports = {
   entry: './client/index.js',
@@ -10,6 +15,16 @@ module.exports = {
   },
   module: {
      rules: [
+       {
+         test: /\.jsx?$/,
+         loader: 'eslint-loader',
+         enforce: 'pre',
+         include: resolve('src'),
+         options: {
+           formatter: require('eslint-friendly-formatter'),
+           fix: true
+         }
+       },
        {
          test: /\.jsx?$/,
          exclude: /node_modules/,
@@ -28,6 +43,7 @@ module.exports = {
      ]
    },
    plugins: [
+     new CleanWebpackPlugin(['static']),
      new ExtractTextPlugin({
        filename: '[name].css',
        disable: false,
